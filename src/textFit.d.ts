@@ -1,3 +1,6 @@
+// Author: Trevor R <https://github.com/TJDoesCode>
+// Date: 3/22/21
+
 interface textFitOptions {
   alignVert?: boolean;
   alignHoriz?: boolean;
