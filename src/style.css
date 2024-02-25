@@ -1,9 +1,17 @@
-#preview {
-  width: 51mm;
-  height: 25mm;
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+main {
+  width: 100%;
+  height: 100%;
+}
+
+.preview-wrapper {
   border: 0.5px solid #999;
-  font-family: Arial;
-  line-height: 1;
+  display: inline-block;
 }
 
 .dimensions {
@@ -16,9 +24,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
 }
 
 .dimensions input {
-  width: 50px;
+  width: 100px;
+}
+
+.preview-wrapper-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
