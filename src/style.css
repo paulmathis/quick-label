@@ -1,0 +1,22 @@
+#preview {
+  width: 51mm;
+  height: 25mm;
+  border: 0.5px solid black;
+}
+
+.dimensions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.dimensions div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.dimensions input {
+  width: 50px;
+}
