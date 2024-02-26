@@ -1,14 +1,18 @@
-const input = document.getElementById("input") as HTMLInputElement;
-const preview = document.getElementById("preview") as HTMLDivElement;
-const printButton = document.getElementById("print") as HTMLButtonElement;
-const widthInput = document.getElementById("width") as HTMLInputElement;
-const heightInput = document.getElementById("height") as HTMLInputElement;
-const previewWrapper = document.querySelector(
-  ".preview-wrapper"
-) as HTMLDivElement;
-const previewWrapperWrapper = document.querySelector(
-  ".preview-wrapper-wrapper"
-) as HTMLDivElement;
+function $<T extends Element>(selector: string): T {
+  const element = document.querySelector(selector);
+  if (!element) {
+    throw new Error(`Element with selector ${selector} not found`);
+  }
+  return element as T;
+}
+
+const input = $<HTMLInputElement>("#input");
+const preview = $<HTMLDivElement>("#preview");
+const printButton = $<HTMLButtonElement>("#print");
+const widthInput = $<HTMLInputElement>("#width");
+const heightInput = $<HTMLInputElement>("#height");
+const previewWrapper = $<HTMLDivElement>(".preview-wrapper");
+const previewWrapperWrapper = $<HTMLDivElement>(".preview-wrapper-wrapper");
 
 let width = "51";
 let height = "25";
@@ -39,31 +43,7 @@ function setText() {
   previewWrapper.style.transformOrigin = "0 center";
 }
 
-window.onresize = () => {
-  setText();
-};
-
-widthInput.addEventListener("input", (event) => {
-  const target = event.target as HTMLInputElement;
-  width = target.value;
-  preview.style.width = `${width}mm`;
-  setText();
-});
-
-heightInput.addEventListener("input", (event) => {
-  const target = event.target as HTMLInputElement;
-  height = target.value;
-  preview.style.height = `${height}mm`;
-  setText();
-});
-
 setText();
-
-input.addEventListener("input", (event) => {
-  const target = event.target as HTMLInputElement;
-  preview.innerText = target.value;
-  setText();
-});
 
 function printElem(elem: string) {
   const mywindow = window.open("", "PRINT", "height=400,width=600")!;
@@ -98,12 +78,6 @@ function printElem(elem: string) {
     margin: 0;
   }
 
-  @media print {
-    @page {
-      size: ${width}mm ${height}mm;
-    }
-  }
-  
   </style></head><body>`);
   mywindow.document.write(document.getElementById(elem)!.outerHTML);
   mywindow.document.write("</body></html>");
@@ -117,6 +91,30 @@ function printElem(elem: string) {
   return true;
 }
 
-printButton.addEventListener("click", () => {
+input.oninput = (event) => {
+  const target = event.target as HTMLInputElement;
+  preview.innerText = target.value;
+  setText();
+};
+
+printButton.onclick = () => {
   printElem("preview");
-});
+};
+
+window.onresize = () => {
+  setText();
+};
+
+widthInput.oninput = (event) => {
+  const target = event.target as HTMLInputElement;
+  width = target.value;
+  preview.style.width = `${width}mm`;
+  setText();
+};
+
+heightInput.oninput = (event) => {
+  const target = event.target as HTMLInputElement;
+  height = target.value;
+  preview.style.height = `${height}mm`;
+  setText();
+};
